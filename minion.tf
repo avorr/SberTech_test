@@ -52,7 +52,7 @@ resource "aws_instance" "Minion_d" {
       "echo 'Minion' > /etc/salt/minion_id",
       "echo \"master: $(cat ~/ip.txt)\" > /etc/salt/minion.d/master.conf",
       "salt-minion -d",
-      "sleep 50",
+      "sleep 10",
       "mkdir MINION"
     ]
     connection {

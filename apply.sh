@@ -16,3 +16,4 @@ echo '}' >> variables.tf
 
 terraform apply -auto-approve \
         -target=aws_instance.Minion_d
+./key_add.py $(terraform output ip_Master_d_public) $(terraform output ip_Minion_d_public)
