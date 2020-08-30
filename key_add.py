@@ -6,7 +6,7 @@ import time
 def once_command(command:str, hostname):
     try:
         sshtransport = paramiko.Transport((hostname, 22))
-        id_rsa=paramiko.RSAKey.from_private_key(open('/home/avorr/.ssh/id_rsa'))
+        id_rsa=paramiko.RSAKey.from_private_key(open(argv[3]))
         sshtransport.connect(username = 'root', pkey=id_rsa)
         session = sshtransport.open_channel(kind='session')
         output = []                
@@ -28,7 +28,11 @@ def once_command(command:str, hostname):
     session.close()
     sshtransport.close()
 
-out_Master = once_command('salt-key', argv[1])
+out_Master_key = once_command('salt-key', argv[1])
+print(out_Master_key)
+out_Master = once_command('salt-master -d', argv[1])
+print(out_Master)
+
 i = 0
 while True:
     i+=1
@@ -40,7 +44,7 @@ while True:
         print(out_Master)
         time.sleep(5)
         break
-    elif i == 10:
+    elif i == 7:
         out_Master = once_command('salt-master -d', argv[1])
         print(out_Master)
     else:

@@ -5,8 +5,9 @@ resource "aws_key_pair" "ssh-key_master" {
 
 resource "aws_instance" "Master_d" {
   ami = "ami-0bcc094591f354be2"
+#  ami = "ami-0758470213bdd23b1" 
   key_name = aws_key_pair.ssh-key_master.id
-  instance_type = "t3.micro"
+  instance_type = "t3.small"
   vpc_security_group_ids = [aws_security_group.Master_d.id]
   tags = {
     Name = "Master"
@@ -41,8 +42,6 @@ resource "aws_instance" "Master_d" {
       "echo '  base:' >> /etc/salt/master.d/roots.conf",
       "echo '    - /srv/salt/base' >> /etc/salt/master.d/roots.conf",
       "mkdir -p /srv/salt/base",
-      "salt-master -d",
-      "sleep 10",
       "salt-master -d",
       "mkdir MASTER"
     ]

@@ -6,7 +6,7 @@ resource "aws_key_pair" "ssh-key_minion" {
 resource "aws_instance" "Minion_d" {
   ami = "ami-0bcc094591f354be2"
   key_name = aws_key_pair.ssh-key_minion.id
-  instance_type = "t3.micro"
+  instance_type = "t3.small"
   vpc_security_group_ids = [aws_security_group.Minion_d.id]
   tags = {
     Name = "Minion"
@@ -21,7 +21,7 @@ resource "aws_instance" "Minion_d" {
     connection {
       type        = "ssh"
       host        = self.public_ip
-      user        = "ubuntu"
+      user        = "ubuntu" 
       private_key = file("/home/avorr/.ssh/id_rsa")
       timeout     = "3m"
     }
