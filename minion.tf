@@ -22,7 +22,7 @@ resource "aws_instance" "Minion_d" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu" 
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
   }  
@@ -34,7 +34,7 @@ resource "aws_instance" "Minion_d" {
       type        = "ssh"
       host        = self.public_ip
       user        = "root"
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
   }
@@ -59,7 +59,7 @@ resource "aws_instance" "Minion_d" {
       type        = "ssh"
       host        = self.public_ip
       user        = "root"
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
   }
@@ -74,7 +74,7 @@ resource "aws_instance" "Minion_d" {
       type        = "ssh"
       host        = var.ip_master
       user        = "root"
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
   }  
