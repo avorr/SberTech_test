@@ -22,7 +22,7 @@ resource "aws_instance" "Minion_d" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu" 
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
   }  
@@ -34,7 +34,7 @@ resource "aws_instance" "Minion_d" {
       type        = "ssh"
       host        = self.public_ip
       user        = "root"
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
   }
@@ -59,7 +59,7 @@ resource "aws_instance" "Minion_d" {
       type        = "ssh"
       host        = self.public_ip
       user        = "root"
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
   }
@@ -74,11 +74,13 @@ resource "aws_instance" "Minion_d" {
       type        = "ssh"
       host        = var.ip_master
       user        = "root"
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
-  }  
+  }
+  depends_on = [aws_instance.Master_d] 
 }
+
 
 resource "aws_security_group" "Minion_d" {
   name = "Security Group for SaltMinion"
@@ -97,6 +99,7 @@ resource "aws_security_group" "Minion_d" {
     protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  depends_on = [aws_instance.Master_d]
 }
 
 output "ip_Minion_d_private" {

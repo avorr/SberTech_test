@@ -23,7 +23,7 @@ resource "aws_instance" "Master_d" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
   }  
@@ -37,19 +37,22 @@ resource "aws_instance" "Master_d" {
       "apt install python3-pip -y",
       "pip3 install salt",
       "mkdir /etc/salt",
-      "mkdir /etc/salt/master.d",
+      "mkdir /etc/salt/master.d /etc/salt/minion.d",
       "echo 'file_roots:' >> /etc/salt/master.d/roots.conf",
       "echo '  base:' >> /etc/salt/master.d/roots.conf",
       "echo '    - /srv/salt/base' >> /etc/salt/master.d/roots.conf",
       "mkdir -p /srv/salt/base",
+      "echo 'master: localhost' > /etc/salt/minion.d/master.conf",
+      "echo 'Master-Minion' > /etc/salt/minion_id",
       "salt-master -d",
+      "salt-minion -d",
       "mkdir MASTER"
     ]
     connection {
       type        = "ssh"
       host        = self.public_ip
       user        = "root"
-      private_key = file("/home/avorr/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_rsa")
       timeout     = "3m"
     }
   }  

@@ -3,7 +3,7 @@ import paramiko
 from sys import argv
 import time
 
-def once_command(command:str, hostname):
+def once_command(command:str, hostname:str):
     try:
         sshtransport = paramiko.Transport((hostname, 22))
         id_rsa=paramiko.RSAKey.from_private_key(open(argv[3]))
@@ -30,21 +30,19 @@ def once_command(command:str, hostname):
 
 out_Master_key = once_command('salt-key', argv[1])
 print(out_Master_key)
-out_Master = once_command('salt-master -d', argv[1])
-print(out_Master)
 
-i = 0
+count_key_add = 0
 while True:
-    i+=1
+    count_key_add += 1
     time.sleep(10)
     out_Master = once_command('salt-key', argv[1])
     print(out_Master)
-    if 'Minion' in out_Master:
+    if 'Minion' in out_Master and 'Master-Minion' in out_Master:
         out_Master = once_command('salt-key -A -y', argv[1])
         print(out_Master)
         time.sleep(5)
         break
-    elif i == 7:
+    elif count_key_add == 7:
         out_Master = once_command('salt-master -d', argv[1])
         print(out_Master)
     else:

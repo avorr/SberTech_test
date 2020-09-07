@@ -11,5 +11,6 @@ resource "aws_security_group" "Supertux" {
       private_key = file("/home/avorr/.ssh/id_rsa")
       timeout     = "3m"
     }
-  } 
+  }
+  depends_on = [aws_instance.Master_d, aws_instance.Minion_d]
 }
