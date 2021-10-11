@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/bin/python3
 import paramiko
 from sys import argv
 import time

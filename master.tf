@@ -12,7 +12,7 @@ resource "aws_instance" "Master_d" {
   tags = {
     Name = "Master"
     Owner = "Vorobyev_Alexander"
-    Project = "Green_Atom"
+    Project = "Supertux2"
   }
   
   provisioner "remote-exec" {

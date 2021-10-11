@@ -11,7 +11,7 @@ resource "aws_instance" "Minion_d" {
   tags = {
     Name = "Minion"
     Owner = "Vorobyev_Alexander"
-    Project = "Green_Atom"
+    Project = "Supertux2"
   }
 
   provisioner "remote-exec" {
